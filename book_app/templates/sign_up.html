@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Signup Page{% endblock %}
+{% block content %}
+<div class="container">
+  <h1>Register Here!</h1>
+  <form class="jumbotron" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="SignUp">
+    <caption>do you already have an account? </caption><a href="{% url 'loginpage' %}">Login Here</a>
+  </form>
+</div>
+{% endblock %}

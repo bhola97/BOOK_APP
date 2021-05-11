@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static '/css/book_detail.css' %}">
+<link rel="stylesheet" href="https://awik.io/demo/webshop-zoom/drift-basic.min.css">
+{% if books %}
+      <h1 style="margin-bottom:40px;color:black;"><u>Following Books Found !</u></h1>
+{% else %}
+         <h1 style="margin-bottom:40px;color:black;"><u>No Books in the Cart !</u></h1>   
+{% endif %}
+
+
+{% for book in books %}
+<div id="col-1">
+  <img class="drift-demo-trigger" data-zoom="{{book.seller.photo.url}}" src="{{book.seller.photo.url}}"><br>
+  <caption>( Cursor over image for a clearer view )</caption>
+</div>
+<div id="col-2">
+  <div id="left">
+    <h2><u>{{ book.seller.book_name }}</u></h2>
+    <p><b>Description : </b>{{ book.seller.description }}</p>
+    <p><b><u>SPECIFICATIONS :-</u></b></p>
+    <p><b>Author Name :</b> {{book.seller.author}}</p>
+    <p><b>Published By :</b> {{book.seller.published_by}}</p>
+    <p><b>Book Type :</b> {{book.seller.types}}</p>
+    <p><b>Book genre/tag :</b> {{book.seller.tags}}</p>
+    <p><b>Price :</b> {{book.seller.price}}</p>
+    <div>
+    <a href="#" class="btn btn-info"> PURCHASE THE BOOK </a>
+    <form action="{% url 'delete_from_cart' book.id %}" method="post"  style="display: inline;">
+       {% csrf_token %}
+            <button type="submit" class="btn btn-warning" style="margin-top: -18px">REMOVE FROM CART</button>
+    </form>
+</div>
+  </div>
+  <div id="right">
+    <div id="details-container">
+    </div>
+  </div>
+</div>
+
+
+
+{% endfor %}
+
+<script src="https://awik.io/demo/webshop-zoom/Drift.min.js"></script>
+<script src="{% static '/js/book_detail.js' %}"></script>
+
+{% endblock %}
